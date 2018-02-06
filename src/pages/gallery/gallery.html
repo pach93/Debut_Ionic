@@ -17,5 +17,20 @@
 
 
 <ion-content padding>
-
+  <div padding="">
+    <ion-item>
+      <ion-label>
+        Mot clé
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="motCle"></ion-input>
+    </ion-item>
+    <button ion-button="" block (click)="onSearch()">Chercher</button>
+  </div>
+  <ion-card *ngFor="let im of images?.hits" >
+    <ion-card-header class="myCardHeader" ></ion-card-header>
+    <ion-card-content>
+      <p>{{ im.tags }}</p>
+      <img src="{{ im.previewURL }}" alt="">
+    </ion-card-content>
+  </ion-card>
 </ion-content>
