@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { MeteoService } from '../../services/meteo.service';
 
 /**
  * Generated class for the MeteoPage page.
@@ -14,12 +15,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'meteo.html',
 })
 export class MeteoPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  meteo: any;
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private meteoService: MeteoService,
+    private loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeteoPage');
+  }
+
+  onGetMeteo(dataForm) {
+    let loading = this.loadingCtrl.create({
+      content : "Kharal some....."
+    });
+    loading.present();
+    this.meteoService.chercher(dataForm.ville)
+      .subscribe(data => {
+        this.meteo = data;
+        console.log(this.meteo);
+        setTimeout(() => {
+          loading.dismiss();
+        }, 3000);
+      }, err => {
+        console.log(err);
+        setTimeout(() => {
+          loading.dismiss();
+        }, 3000);
+      })
   }
 
 }

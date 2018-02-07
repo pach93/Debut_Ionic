@@ -12,6 +12,7 @@ import { GalleryPage } from '../pages/gallery/gallery';
 import { HttpModule } from '@angular/http';
 import { GalleryService } from '../services/gallery.service';
 import { DetailImagePage } from '../pages/detail-image/detail-image';
+import { MeteoService } from '../services/meteo.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { DetailImagePage } from '../pages/detail-image/detail-image';
     HomePage, GalleryPage, MeteoPage, PlacesPage, DetailImagePage
   ],
   providers: [
-    StatusBar, GalleryService,
+    StatusBar, GalleryService,MeteoService,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
