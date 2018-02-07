@@ -11,11 +11,12 @@ import { HomePage } from '../pages/home/home';
 import { GalleryPage } from '../pages/gallery/gallery';
 import { HttpModule } from '@angular/http';
 import { GalleryService } from '../services/gallery.service';
+import { DetailImagePage } from '../pages/detail-image/detail-image';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage, GalleryPage, MeteoPage, PlacesPage
+    HomePage, GalleryPage, MeteoPage, PlacesPage, DetailImagePage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -24,7 +25,7 @@ import { GalleryService } from '../services/gallery.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage, GalleryPage, MeteoPage, PlacesPage
+    HomePage, GalleryPage, MeteoPage, PlacesPage, DetailImagePage
   ],
   providers: [
     StatusBar, GalleryService,

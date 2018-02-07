@@ -31,13 +31,13 @@
     <ion-card-header class="myCardHeader" >
       <ion-item>
         <ion-avatar item-start>
-          <img src="{{im.userImageURL}}">
+          <img src="{{im.userImageURL}}" >
         </ion-avatar>
         <h2>{{im.user}}</h2>
         <p>{{im.user_id}}</p>
       </ion-item>
     </ion-card-header>
-    <img src="{{ im.previewURL }}" alt="">
+    <img src="{{ im.previewURL }}" (click)="onDetailImage(im)">
     <ion-card-content>
       <p>Tags:<strong> {{ im.tags }}</strong></p>
       <p>Height:<strong> {{ im.imageHeight }}</strong></p>

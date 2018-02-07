@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import "rxjs/add/operator/map";
 import { Http } from '@angular/http';
 import { GalleryService } from '../../services/gallery.service';
+import { DetailImagePage } from '../detail-image/detail-image';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 /**
  * Generated class for the GalleryPage page.
  *
@@ -23,8 +25,9 @@ export class GalleryPage {
   images:any={hits:[]};
 
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams,  
-    private galleryService:GalleryService) {
+              public navParams: NavParams,  
+              private galleryService:GalleryService,
+              private loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -32,6 +35,18 @@ export class GalleryPage {
   }
 
   onSearch(){
+    
+    this.images.hits = [];
+    this.doSearch();
+
+   
+  }
+
+  doSearch(){
+    let loading = this.loadingCtrl.create({
+      content : "Kharal some....."
+    });
+    loading.present();
     this.galleryService.chercher(this.motCle, this.size,this.currentPage)
     .subscribe(data=>{
       this.totalPages = data.totalHits / this.size;
@@ -39,8 +54,14 @@ export class GalleryPage {
       data.hits.forEach(h => {
         this.images.hits.push(h);
       });
+      setTimeout(() => {
+        loading.dismiss();
+      }, 3000);
     },err=>{
       console.log(err);
+      setTimeout(() => {
+        loading.dismiss();
+      }, 3000);
     })
 //Methode sans utilisation de services
   //   this.http.get("https://pixabay.com/api/?key=7956418-3b0c223fece3d6a14ce0a6e8e&q="+this.motCle+"&per_page=10&page=1")
@@ -55,10 +76,14 @@ export class GalleryPage {
   doInfinite(infinite){
     if(this.currentPage < this.totalPages){
       ++this.currentPage;
-      this.onSearch();
+      this.doSearch();
       infinite.complete();
     }
     
+  }
+
+  onDetailImage(im){
+    this.navCtrl.push(DetailImagePage, {myImage:im}); 
   }
 
 }
