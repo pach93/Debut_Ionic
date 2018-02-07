@@ -26,11 +26,45 @@
     </ion-item>
     <button ion-button="" block (click)="onSearch()">Chercher</button>
   </div>
+
   <ion-card *ngFor="let im of images?.hits" >
-    <ion-card-header class="myCardHeader" ></ion-card-header>
+    <ion-card-header class="myCardHeader" >
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{im.userImageURL}}">
+        </ion-avatar>
+        <h2>{{im.user}}</h2>
+        <p>{{im.user_id}}</p>
+      </ion-item>
+    </ion-card-header>
+    <img src="{{ im.previewURL }}" alt="">
     <ion-card-content>
-      <p>{{ im.tags }}</p>
-      <img src="{{ im.previewURL }}" alt="">
+      <p>Tags:<strong> {{ im.tags }}</strong></p>
+      <p>Height:<strong> {{ im.imageHeight }}</strong></p>
+      <p>Width:<strong> {{ im.imageWidth }}</strong></p>
     </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{im.likes}} likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{im.comments}} Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          {{im.favorites}} Favorites
+        </ion-note>
+      </ion-col>
+    </ion-row>
   </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
 </ion-content>

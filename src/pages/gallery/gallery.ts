@@ -19,7 +19,8 @@ export class GalleryPage {
   motCle:string="";
   size:number=10;
   currentPage:number=1;
-  images:any;
+  totalPages:number;
+  images:any={hits:[]};
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,  
@@ -33,7 +34,11 @@ export class GalleryPage {
   onSearch(){
     this.galleryService.chercher(this.motCle, this.size,this.currentPage)
     .subscribe(data=>{
-      this.images = data;
+      this.totalPages = data.totalHits / this.size;
+      if(data.totalHits % this.size !=0) ++this.totalPages;
+      data.hits.forEach(h => {
+        this.images.hits.push(h);
+      });
     },err=>{
       console.log(err);
     })
@@ -45,6 +50,15 @@ export class GalleryPage {
   //   },err=>{
   //     console.log(err);
   //   })
+  }
+
+  doInfinite(infinite){
+    if(this.currentPage < this.totalPages){
+      ++this.currentPage;
+      this.onSearch();
+      infinite.complete();
+    }
+    
   }
 
 }
