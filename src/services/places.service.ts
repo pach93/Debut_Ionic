@@ -4,10 +4,11 @@ import { PlacesPage } from "../pages/places/places";
 import { Storage } from "@ionic/storage/dist/storage";
 
 
+
 @Injectable()
 export class PlacesService {
 
-    constructor(public storage:Storage){
+    constructor(public storage: Storage) {
 
     }
 
@@ -16,17 +17,17 @@ export class PlacesService {
     ];
 
     addPlace(place: Place) {
-        place.timestamp = new Date().getTime();
+        
         this.places.push(place);
-        this.storage.set('places',this.places);
+        this.storage.set('places', this.places);
     }
 
     getAllPlaces() {
         return this.storage.get('places')
-        .then(data=>{
-            this.places = data!=null?data:[];
-            return this.places;
-        })
-        
+            .then(data => {
+                this.places = data != null ? data : [];
+                return this.places;
+            })
+
     }
 }

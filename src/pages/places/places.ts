@@ -1,3 +1,4 @@
+import { DetailPlacePage } from './../detail-place/detail-place';
 import { PlacesService } from './../../services/places.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -25,20 +26,25 @@ export class PlacesPage {
     public placesService: PlacesService) {
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
 
-   this.placesService.getAllPlaces().then(data=>{
-     this.places = data;
-   })
-   
+    this.placesService.getAllPlaces()
+    .then(data => {
+      this.places = data;
+    })
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacesPage');
   }
 
-  onNewPlace(){
+  onNewPlace() {
     this.navCtrl.push(NewPlacePage);
+  }
+
+  onDetailPlace(p:Place){
+    this.navCtrl.push(DetailPlacePage,{place:p});
   }
 
 }
